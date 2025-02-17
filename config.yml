@@ -1,0 +1,21 @@
+version: 0.1
+
+log:
+  level: debug
+  fields:
+    service: registry
+
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+    Access-Control-Allow-Credentials: [true]
+    Access-Control-Allow-Origin: [http://localhost:8080]
+
+storage:
+  s3:
+    region: auto
+    accesskey: <accesskey>
+    secretkey: <secretkey>
+    bucket: <your-bucket>
+    regionendpoint: https://<your-domain>.r2.cloudflarestorage.com

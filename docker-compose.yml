@@ -1,0 +1,26 @@
+services:
+  registry:
+    image: registry:2
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./auth:/auth
+      - ./config.yml:/etc/docker/registry/config.yml
+    environment:
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+
+  registry-ui:
+    image: joxit/docker-registry-ui:latest
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      REGISTRY_TITLE: Meu Docker Registry
+      REGISTRY_URL: http://localhost:5000
+      DELETE_IMAGES: true
+    depends_on:
+      - registry
+
